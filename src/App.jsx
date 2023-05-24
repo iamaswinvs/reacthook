@@ -14,7 +14,7 @@ export default function App() {
 
 
   return (
-    <div>
+    <div style={{textAlign:'center'}}>
       <Container className="mt-5 pt-5">
         <h1 className="text-center mb-5">Form</h1>
 
