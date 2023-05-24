@@ -1,61 +1,45 @@
-import React,{useEffect, useState} from 'react'
-import Container from 'react-bootstrap/Container';
-import Table from 'react-bootstrap/Table';
+import Container from "react-bootstrap/Container";
+import { useForm } from "react-hook-form";
+
 
 export default function App() {
+ 
 
 
-const [todo,setTodo] = useState([]);
+ const { register, handleSubmit } = useForm();
+ const onFormSubmit = data => console.log(data);
+ const onErrors = errors => console.error(errors);
 
 
-const getData = async ()=>{
-const data = await fetch('https://jsonplaceholder.typicode.com/todos');
-const jsonData = await data.json();
-setTodo(jsonData)
+
+
+  return (
+    <div>
+      <Container className="mt-5 pt-5">
+        <h1 className="text-center mb-5">Form</h1>
+
+
+<form onSubmit={handleSubmit(onFormSubmit, onErrors)}>
+  <label htmlFor="">Name</label>
+  <input type="text" Name="Name" {...register('Name',{ required: "Name is required" })} id="" />
+  <br />
+  <label htmlFor="">Address</label>
+  <input type="text" name="Address" {...register('Address',{ required: "Address is required" })} id="" />
+  <br />
+  <label htmlFor="">College</label>
+  <input type="text" name="College" {...register('College',{ required: "College is required" })} id="" />
+  <br />
+  <label htmlFor="">Phone</label>
+  <input type="text" name="Phone" {...register('Phone',{ required: "Phone is required" })} id="" />
+  <br />
+  <button type="submit">Submit</button>
+</form>
+
+
+
+
+      </Container>
+    </div>
+   );
 }
-
-
-
-useEffect(()=>{
-getData();
-},[])
-
-
-
-return (
-<div>
-<Container className='mt-5 pt-5'>
-<h1 className='text-center mb-5'>Todo List</h1>
-<Table striped bordered hover>
-<thead>
-<tr>
-<th>#</th>
-  <th>Title</th>
-<th>Completed</th>
-</tr>
-</thead>
-<tbody>
- {
-todo.map((item,index)=>{
-return(
-<tr key={index}>
-<td><input type="checkbox" name="" id="" /></td>
-<td>{item.title}</td>
-<td>{item.completed}</td>
-</tr>
-)
-})
- }
- 
-</tbody>
-</Table>
-</Container>
-
-
-
-</div>
-)
-}
-
-
 
